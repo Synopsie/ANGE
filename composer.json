@@ -1,0 +1,28 @@
+{
+    "name": "synopsie/ange",
+    "description": "ANGE, an API designed to simplify development by providing tools and features to developers. This tool is constantly evolving and is regularly updated to meet the changing needs of the community.",
+    "type": "project",
+    "require": {
+        "php": "^8.1",
+      "ext-yaml": "*"
+    },
+    "require-dev": {
+        "pocketmine/pocketmine-mp": "dev-stable",
+        "friendsofphp/php-cs-fixer": "dev-master",
+        "phpstan/phpstan": "2.0.x-dev",
+        "phpunit/phpunit": "11.3.x-dev"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "synopsie\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dumont-Julien",
+            "email": "dumontj357@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
