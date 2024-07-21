@@ -26,6 +26,8 @@ use synopsie\language\Language;
 use synopsie\language\LanguageManager;
 use synopsie\plugin\ServerLoader;
 
+require_once __DIR__ . '/utils/promise/functions.php';
+
 class Engine extends PluginBase {
 	use SingletonTrait{
 		setInstance as private;
