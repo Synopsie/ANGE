@@ -27,7 +27,7 @@ interface EnginePlugin {
 
     public function getDataFolder() : string;
 
-    public function getInfos() : EnginePluginInfos;
+    public function getPluginInfos() : EnginePluginInfos;
 
     public function getName() : string;
 

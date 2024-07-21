@@ -16,7 +16,7 @@ class FolderPluginLoader implements PluginLoader {
         $this->loader = $loader;
     }
 
-    public function canLoad(string $path) : bool {
+    public function canLoadPlugin(string $path) : bool {
         return is_dir($path) && file_exists(Path::join($path, "/plugin.yml"));
     }
 

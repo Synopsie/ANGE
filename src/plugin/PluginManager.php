@@ -104,7 +104,7 @@ class PluginManager {
             if(!is_string($file)) {
                 throw new AssumptionFailedError("FilesystemIterator should return strings");
             }
-            if(!$loader->canLoad($file)) {
+            if(!$loader->canLoadPlugin($file)) {
                 continue;
             }
             try {
@@ -222,7 +222,7 @@ class PluginManager {
         if (!$plugin->isEnabled()) {
             $this->engine->getLogger()->info(
                 Server::getInstance()->getLanguage()->translate(
-                    KnownTranslationFactory::pocketmine_plugin_enable($plugin->getInfos()->getFullName())
+                    KnownTranslationFactory::pocketmine_plugin_enable($plugin->getPluginInfos()->getFullName())
                 )
             );
             $plugin->getScheduler()->setEnabled(true);
@@ -234,7 +234,7 @@ class PluginManager {
 
             if($plugin->isEnabled()) {
                 $this->enabledPlugins[$plugin->getName()] = $plugin;
-                foreach ($plugin->getInfos()->getDepends() as $dependency) {
+                foreach ($plugin->getPluginInfos()->getDepends() as $dependency) {
                     $this->pluginDependents[$dependency][$plugin->getName()] = true;
                 }
                 return true;
@@ -242,7 +242,7 @@ class PluginManager {
             $this->engine->getLogger()->critical(
                 Server::getInstance()->getLanguage()->translate(
                     KnownTranslationFactory::pocketmine_plugin_enableError(
-                        $plugin->getInfos()->getName(),
+                        $plugin->getPluginInfos()->getName(),
                         KnownTranslationFactory::pocketmine_plugin_suicide()
                     )
                 )
@@ -273,17 +273,17 @@ class PluginManager {
             $this->engine->getLogger()->info(
                 Server::getInstance()->getLanguage()->translate(
                     KnownTranslationFactory::pocketmine_plugin_disable(
-                        $plugin->getInfos()->getFullName()
+                        $plugin->getPluginInfos()->getFullName()
                     )
                 )
             );
             unset($this->enabledPlugins[$plugin->getName()]);
             foreach(Utils::stringifyKeys($this->pluginDependents) as $dependency => $dependentList) {
-                if(isset($this->pluginDependents[$dependency][$plugin->getInfos()->getName()])) {
+                if(isset($this->pluginDependents[$dependency][$plugin->getPluginInfos()->getName()])) {
                     if(count($this->pluginDependents[$dependency]) === 1) {
                         unset($this->pluginDependents[$dependency]);
                     } else {
-                        unset($this->pluginDependents[$dependency][$plugin->getInfos()->getName()]);
+                        unset($this->pluginDependents[$dependency][$plugin->getPluginInfos()->getName()]);
                     }
                 }
             }
