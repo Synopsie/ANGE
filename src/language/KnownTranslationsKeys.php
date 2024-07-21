@@ -15,13 +15,8 @@
 
 declare(strict_types=1);
 
-namespace synopsie\plugin;
+namespace synopsie\language;
 
-final class PluginLoadTriage {
-	/** @var PluginLoadTriageEntry[] */
-	public array $plugins = [];
-
-	/** @var string[][] */
-	public array $dependencies = [];
-
+final class KnownTranslationsKeys {
+	public const LANGUAGE_NAME = "language.name";
 }
