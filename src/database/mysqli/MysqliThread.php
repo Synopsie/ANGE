@@ -1,9 +1,30 @@
 <?php
 
+/*
+ *  ____   __   __  _   _    ___    ____    ____    ___   _____
+ * / ___|  \ \ / / | \ | |  / _ \  |  _ \  / ___|  |_ _| | ____|
+ * \___ \   \ V /  |  \| | | | | | | |_) | \___ \   | |  |  _|
+ *  ___) |   | |   | |\  | | |_| | |  __/   ___) |  | |  | |___
+ * |____/    |_|   |_| \_|  \___/  |_|     |____/  |___| |_____|
+ *
+ * @author Julien
+ * @link https://arkaniastudios.com
+ * @version 0.0.1-alpha
+ *
+ */
+
 declare(strict_types=1);
 
 namespace synopsie\database\mysqli;
 
+use Closure;
+use InvalidArgumentException;
+use mysqli;
+use mysqli_result;
+use mysqli_sql_exception;
+use mysqli_stmt;
+use pocketmine\snooze\SleeperHandlerEntry;
+use pocketmine\thread\log\AttachableThreadSafeLogger;
 use synopsie\database\base\QueryRecvQueue;
 use synopsie\database\base\QuerySendQueue;
 use synopsie\database\base\SqlSlaveThread;
@@ -14,14 +35,6 @@ use synopsie\database\result\SqlSelectResult;
 use synopsie\database\SqlError;
 use synopsie\database\SqlResult;
 use synopsie\database\SqlThread;
-use Closure;
-use InvalidArgumentException;
-use mysqli;
-use mysqli_result;
-use mysqli_sql_exception;
-use mysqli_stmt;
-use pocketmine\snooze\SleeperHandlerEntry;
-use pocketmine\thread\log\AttachableThreadSafeLogger;
 use function array_map;
 use function assert;
 use function bccomp;

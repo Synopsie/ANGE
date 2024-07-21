@@ -1,4 +1,18 @@
 <?php
+
+/*
+ *  ____   __   __  _   _    ___    ____    ____    ___   _____
+ * / ___|  \ \ / / | \ | |  / _ \  |  _ \  / ___|  |_ _| | ____|
+ * \___ \   \ V /  |  \| | | | | | | |_) | \___ \   | |  |  _|
+ *  ___) |   | |   | |\  | | |_| | |  __/   ___) |  | |  | |___
+ * |____/    |_|   |_| \_|  \___/  |_|     |____/  |___| |_____|
+ *
+ * @author Julien
+ * @link https://arkaniastudios.com
+ * @version 0.0.1-alpha
+ *
+ */
+
 declare(strict_types=1);
 
 namespace synopsie\pack;
@@ -9,45 +23,44 @@ use synopsie\Engine;
 use synopsie\events\pack\ResourcePackLoadEvent;
 
 class ResourcePackManager {
+	private Engine $engine;
 
-    private Engine $engine;
+	public function registerResourcePack(string $packName, ResourcesPackFile $packFile) : void {
+		$this->resourcePackPath[$packName] = $packFile->getResourcePackPath();
+		$packFile->savePackInData($packFile->getResourcePackPath());
+		$packFile->zipPack(
+			$packFile->getResourcePackPath(),
+			Path::join($this->engine->getEngineFile(), 'packs'),
+			$packName
+		);
+	}
 
-    public function registerResourcePack(string $packName, ResourcesPackFile $packFile) : void {
-        $this->resourcePackPath[$packName] = $packFile->getResourcePackPath();
-        $packFile->savePackInData($packFile->getResourcePackPath());
-        $packFile->zipPack(
-            $packFile->getResourcePackPath(),
-            Path::join($this->engine->getEngineFile(), 'packs'),
-            $packName
-        );
-    }
+	/** @var string[] */
+	protected array $resourcePackPath = [];
 
-    /** @var string[] */
-    protected array $resourcePackPath = [];
+	public function __construct(Engine $engine) {
+		$this->engine = $engine;
 
-    public function __construct(Engine $engine) {
-        $this->engine = $engine;
+	}
 
-    }
-
-    public function loadResourcePack() : void {
-        $resourcePackManager = $this->engine->getServer()->getResourcePackManager();
-        $resourcePacks       = [];
-        foreach ($this->resourcePackPath as $packName => $packPath) {
-            $resourcePacks[] = new ZippedResourcePack($packPath . '.zip');
-        }
-        $ev = new ResourcePackLoadEvent();
-        $ev->call();
-        if (!$ev->isCancelled()) {
-            if ($ev->getResourcePackPath() !== null) {
-                foreach ($ev->getResourcePackPath() as $packName => $resource) {
-                    $resourcePacks[] = new ZippedResourcePack($resource . '.zip');
-                }
-            }
-            $resourcePackManager->setResourcePacksRequired(true);
-            $resourcePackManager->setResourceStack($resourcePacks);
-        } else {
-            $this->engine->getLogger()->warning('Resources pack system is cancelled !');
-        }
-    }
+	public function loadResourcePack() : void {
+		$resourcePackManager = $this->engine->getServer()->getResourcePackManager();
+		$resourcePacks       = [];
+		foreach ($this->resourcePackPath as $packName => $packPath) {
+			$resourcePacks[] = new ZippedResourcePack($packPath . '.zip');
+		}
+		$ev = new ResourcePackLoadEvent();
+		$ev->call();
+		if (!$ev->isCancelled()) {
+			if ($ev->getResourcePackPath() !== null) {
+				foreach ($ev->getResourcePackPath() as $packName => $resource) {
+					$resourcePacks[] = new ZippedResourcePack($resource . '.zip');
+				}
+			}
+			$resourcePackManager->setResourcePacksRequired(true);
+			$resourcePackManager->setResourceStack($resourcePacks);
+		} else {
+			$this->engine->getLogger()->warning('Resources pack system is cancelled !');
+		}
+	}
 }

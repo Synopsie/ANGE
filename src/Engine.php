@@ -40,10 +40,10 @@ class Engine extends PluginBase {
 	private ServerLoader $serverLoader;
 	private ListenerManager $listenerManager;
 	private LanguageManager $languageManager;
-    private ?DataBaseManager $databaseManager = null;
-    private ResourcePackManager $resourcePackManager;
+	private ?DataBaseManager $databaseManager = null;
+	private ResourcePackManager $resourcePackManager;
 
-    /**
+	/**
 	 * @throws ReflectionException
 	 */
 	protected function onLoad() : void {
@@ -54,10 +54,10 @@ class Engine extends PluginBase {
 		$this->serverLoader    = new ServerLoader($this, $this->getServer());
 		$this->listenerManager = new ListenerManager();
 		$this->languageManager = new LanguageManager($this);
-        if($this->getConfig()->get('enable-database')) {
-            $this->databaseManager = new DataBaseManager($this);
-        }
-        $this->resourcePackManager = new ResourcePackManager($this);
+		if($this->getConfig()->get('enable-database')) {
+			$this->databaseManager = new DataBaseManager($this);
+		}
+		$this->resourcePackManager = new ResourcePackManager($this);
 
 		$this->serverLoader->loadEnginePlugins();
 	}
@@ -65,20 +65,20 @@ class Engine extends PluginBase {
 	protected function onEnable() : void {
 		$this->serverLoader->enableEnginePlugins();
 
-        $this->resourcePackManager->loadResourcePack();
+		$this->resourcePackManager->loadResourcePack();
 	}
 
 	protected function onDisable() : void {
 		$this->serverLoader->disableEnginePlugins();
 	}
 
-    final public function getEngineFile() : string {
-        return Path::join(
-            $this->getServer()->getPluginPath(),
-            'ANGE',
-            'src'
-        );
-    }
+	final public function getEngineFile() : string {
+		return Path::join(
+			$this->getServer()->getPluginPath(),
+			'ANGE',
+			'src'
+		);
+	}
 
 	public function getPluginPath() : string {
 		return $this->pluginPath;
@@ -100,12 +100,12 @@ class Engine extends PluginBase {
 		return $this->languageManager->getConsoleLanguage();
 	}
 
-    public function getDataBaseManager() : ?DataBaseManager {
-        return $this->databaseManager;
-    }
+	public function getDataBaseManager() : ?DataBaseManager {
+		return $this->databaseManager;
+	}
 
-    public function getResourcePackManager() : ResourcePackManager {
-        return $this->resourcePackManager;
-    }
+	public function getResourcePackManager() : ResourcePackManager {
+		return $this->resourcePackManager;
+	}
 
 }

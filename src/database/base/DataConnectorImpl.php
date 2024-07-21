@@ -1,16 +1,29 @@
 <?php
 
+/*
+ *  ____   __   __  _   _    ___    ____    ____    ___   _____
+ * / ___|  \ \ / / | \ | |  / _ \  |  _ \  / ___|  |_ _| | ____|
+ * \___ \   \ V /  |  \| | | | | | | |_) | \___ \   | |  |  _|
+ *  ___) |   | |   | |\  | | |_| | |  __/   ___) |  | |  | |___
+ * |____/    |_|   |_| \_|  \___/  |_|     |____/  |___| |_____|
+ *
+ * @author Julien
+ * @link https://arkaniastudios.com
+ * @version 0.0.1-alpha
+ *
+ */
+
 declare(strict_types=1);
 
 namespace synopsie\database\base;
 
+use Logger;
+use pocketmine\plugin\Plugin;
 use synopsie\database\DataConnector;
 use synopsie\database\SqlError;
 use synopsie\database\SqlThread;
 use synopsie\utils\promise\Deferred;
 use synopsie\utils\promise\PromiseInterface;
-use Logger;
-use pocketmine\plugin\Plugin;
 use function count;
 
 class DataConnectorImpl implements DataConnector {
