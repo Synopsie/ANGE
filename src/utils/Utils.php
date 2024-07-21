@@ -15,26 +15,17 @@
 
 declare(strict_types=1);
 
-namespace synopsie\plugin;
+namespace synopsie\utils;
 
-final readonly class PluginLoadTriageEntry {
-	public function __construct(
-		private string           $file,
-		public PluginLoader      $loader,
-		public EnginePluginInfos $informations
-	) {
+final class Utils {
+	private static string $prefix;
+
+	public static function getPrefix() : string {
+		return self::$prefix ?? '§9Synopsie §l§7» §r';
 	}
 
-	public function getFile() : string {
-		return $this->file;
-	}
-
-	public function getLoader() : PluginLoader {
-		return $this->loader;
-	}
-
-	public function getPluginInfos() : EnginePluginInfos {
-		return $this->informations;
+	public static function setPrefix(string $prefix) : void {
+		self::$prefix = $prefix;
 	}
 
 }

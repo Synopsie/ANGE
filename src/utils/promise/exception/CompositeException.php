@@ -15,26 +15,24 @@
 
 declare(strict_types=1);
 
-namespace synopsie\plugin;
+namespace synopsie\utils\promise\exception;
 
-final readonly class PluginLoadTriageEntry {
-	public function __construct(
-		private string           $file,
-		public PluginLoader      $loader,
-		public EnginePluginInfos $informations
-	) {
+use Exception;
+use Throwable;
+
+class CompositeException extends Exception {
+	private array $throwables;
+	public function __construct(array $throwables, $message = '', $code = 0, $previous = null) {
+		parent::__construct($message, $code, $previous);
+
+		$this->throwables = $throwables;
 	}
 
-	public function getFile() : string {
-		return $this->file;
-	}
-
-	public function getLoader() : PluginLoader {
-		return $this->loader;
-	}
-
-	public function getPluginInfos() : EnginePluginInfos {
-		return $this->informations;
+	/**
+	 * @return Throwable[]
+	 */
+	public function getThrowables() : array {
+		return $this->throwables;
 	}
 
 }

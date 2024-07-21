@@ -15,26 +15,9 @@
 
 declare(strict_types=1);
 
-namespace synopsie\plugin;
+namespace synopsie\events;
 
-final readonly class PluginLoadTriageEntry {
-	public function __construct(
-		private string           $file,
-		public PluginLoader      $loader,
-		public EnginePluginInfos $informations
-	) {
-	}
+use pocketmine\event\Listener;
 
-	public function getFile() : string {
-		return $this->file;
-	}
-
-	public function getLoader() : PluginLoader {
-		return $this->loader;
-	}
-
-	public function getPluginInfos() : EnginePluginInfos {
-		return $this->informations;
-	}
-
+interface EngineListener extends Listener {
 }

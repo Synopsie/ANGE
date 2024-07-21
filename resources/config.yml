@@ -1,0 +1,14 @@
+# Config of ArkaniaStudios-Ange
+
+# english => English
+# french => French
+default-language: french
+console-language: french
+
+enable-database: false
+database:
+  host: 'localhost'
+  username: 'root'
+  password: ''
+  schema: 'ange'
+  port: 3306

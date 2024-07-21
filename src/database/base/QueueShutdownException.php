@@ -15,26 +15,9 @@
 
 declare(strict_types=1);
 
-namespace synopsie\plugin;
+namespace synopsie\database\base;
 
-final readonly class PluginLoadTriageEntry {
-	public function __construct(
-		private string           $file,
-		public PluginLoader      $loader,
-		public EnginePluginInfos $informations
-	) {
-	}
+use RuntimeException;
 
-	public function getFile() : string {
-		return $this->file;
-	}
-
-	public function getLoader() : PluginLoader {
-		return $this->loader;
-	}
-
-	public function getPluginInfos() : EnginePluginInfos {
-		return $this->informations;
-	}
-
+class QueueShutdownException extends RuntimeException {
 }

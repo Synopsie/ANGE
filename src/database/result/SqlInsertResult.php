@@ -15,26 +15,18 @@
 
 declare(strict_types=1);
 
-namespace synopsie\plugin;
+namespace synopsie\database\result;
 
-final readonly class PluginLoadTriageEntry {
-	public function __construct(
-		private string           $file,
-		public PluginLoader      $loader,
-		public EnginePluginInfos $informations
-	) {
+class SqlInsertResult extends SqlChangeResult {
+	private int $insertId;
+
+	public function __construct(int $affectedRows, int $insertId) {
+		parent::__construct($affectedRows);
+		$this->insertId = $insertId;
 	}
 
-	public function getFile() : string {
-		return $this->file;
-	}
-
-	public function getLoader() : PluginLoader {
-		return $this->loader;
-	}
-
-	public function getPluginInfos() : EnginePluginInfos {
-		return $this->informations;
+	public function getInsertId() : int {
+		return $this->insertId;
 	}
 
 }

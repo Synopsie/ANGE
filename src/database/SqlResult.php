@@ -15,13 +15,7 @@
 
 declare(strict_types=1);
 
-namespace synopsie\plugin;
+namespace synopsie\database;
 
-final class PluginLoadTriage {
-	/** @var PluginLoadTriageEntry[] */
-	public array $plugins = [];
-
-	/** @var string[][] */
-	public array $dependencies = [];
-
+class SqlResult {
 }
