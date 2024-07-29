@@ -2,7 +2,7 @@ name: ANGE
 version: 0.0.1-ALPHA
 main: synopsie\Engine
 src-namespace-prefix: synopsie
-api: 5.0.0
+api: 3.0.0
 authors:
   - Synopsie
   - ArkaniaStudios-Team

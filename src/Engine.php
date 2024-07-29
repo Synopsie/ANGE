@@ -27,6 +27,7 @@ use synopsie\language\Language;
 use synopsie\language\LanguageManager;
 use synopsie\pack\ResourcePackManager;
 use synopsie\plugin\ServerLoader;
+use synopsie\utils\time\Date;
 
 require_once __DIR__ . '/utils/promise/functions.php';
 
@@ -58,13 +59,11 @@ class Engine extends PluginBase {
 			$this->databaseManager = new DataBaseManager($this);
 		}
 		$this->resourcePackManager = new ResourcePackManager($this);
-
 		$this->serverLoader->loadEnginePlugins();
 	}
 
 	protected function onEnable() : void {
 		$this->serverLoader->enableEnginePlugins();
-
 		$this->resourcePackManager->loadResourcePack();
 	}
 
